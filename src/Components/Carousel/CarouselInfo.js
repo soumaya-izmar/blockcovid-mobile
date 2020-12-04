@@ -15,7 +15,7 @@ const CarouselInfo = () => {
       },
       {
         title:
-          "Limitez les contacts rapprochés (1,5m) avec d’autres personnes.",
+          "Limitez les contacts rapprochés(1,5m) avec d’autres personnes.",
         color: "#C78AFF",
       },
       {
