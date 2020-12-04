@@ -9,7 +9,7 @@ npm-debug.*
 *.mobileprovision
 *.orig.*
 web-build/
-android/java_pid10400.hprof
+
 # macOS
 .DS_Store
 
