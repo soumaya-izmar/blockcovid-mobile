@@ -3,7 +3,7 @@ import { useFonts, Roboto_400Regular } from "@expo-google-fonts/dev";
 import { StyleSheet, Dimensions } from "react-native";
 
 const deviceWidth = Dimensions.get("window").width;
-
+baseFontStyle = { fontFamily: "Roboto" };
 const styles = StyleSheet.create({
   Maincontainer: {
     flex: 1,
@@ -16,11 +16,11 @@ const styles = StyleSheet.create({
   },
   textStyle: {
     color: "black",
-    fontFamily: "Arial",
+    fontFamily: Roboto_400Regular,
     fontWeight: "bold",
     fontSize: 30,
-    alignSelf:"flex-start",
-    padding:10
+    alignSelf: "flex-start",
+    padding: 10,
   },
   ButtonStyle: {
     alignItems: "center",
@@ -32,12 +32,13 @@ const styles = StyleSheet.create({
 
   textStyleButton: {
     color: "white",
-    fontFamily: "Arial",
+    fontFamily: Roboto_400Regular,
     fontWeight: "bold",
+    fontSize:20
   },
   idStyle: {
     color: "black",
-    fontFamily: "Arial",
+    fontFamily: Roboto_400Regular,
     fontWeight: "bold",
     left: 0,
     padding: 5,
@@ -45,7 +46,7 @@ const styles = StyleSheet.create({
   },
   textContentStyle: {
     color: "black",
-    fontFamily: "Arial",
+    fontFamily: Roboto_400Regular,
     fontWeight: "bold",
     justifyContent: "center",
     alignSelf: "center",
@@ -59,41 +60,25 @@ const styles = StyleSheet.create({
   infoStyle: {
     flex: 2.6,
     borderRadius: 35,
-    marginLeft: +10,
-    marginRight: +10,
+
     alignSelf: "center",
     borderColor: "black",
   },
 
-  infoTitleStyle: {
-    color: "black",
-    fontFamily: "Arial",
-    fontWeight: "bold",
-    justifyContent: "center",
-    alignSelf: "center",
-    padding: 20,
-  },
-  containerStyle: { padding: 0, borderRadius: 15 },
-  subInfoStyle: {
-    color: "black",
-    fontFamily: "Arial",
-    fontWeight: "bold",
-    justifyContent: "center",
-    padding: 10,
-    fontSize: 16,
-    shadowColor: "#000",
-    shadowOpacity: 0.58,
-    shadowRadius: 16.0,
+  containerStyle: {
+    padding: 0,
+    borderRadius: 15,
+    shadowColor: "#000000",
+    shadowOpacity: 0.70,
+    shadowRadius: 15.0,
     shadowOffset: {
-      height: 12,
+      height: 3,
       width: 1,
     },
+    elevation: 10,
   },
-  linearGradient: {
-    paddingLeft: 15,
-    paddingRight: 15,
-    borderRadius: 5,
-  },
+
+ 
   titleStyle: {
     color: "#ECE9E9",
     textAlign: "left",
@@ -103,7 +88,7 @@ const styles = StyleSheet.create({
   listItemStyle: {
     paddingBottom: 5,
     paddingTop: 0,
-   
+    borderRadius: 15,
   },
   dividerStyle: {
     backgroundColor: "white",
@@ -111,8 +96,10 @@ const styles = StyleSheet.create({
     marginRight: +20,
     padding: 0,
   },
+
   listItemTitleStyle: {
     color: "#ECE9E9",
+    fontSize: 17,
   },
 });
 

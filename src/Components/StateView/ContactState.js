@@ -12,7 +12,6 @@ const ContactState = () => {
   return (
     <>
       <Card
-        elevate={4}
         containerStyle={{
           ...styles.containerStyle,
           backgroundColor: "#f0ad4e",

@@ -6,13 +6,9 @@ import Icon from "react-native-vector-icons/FontAwesome";
 import styles from "../../styles/styles";
 
 const CovidState = () => {
-  const infectedImage = require("../../../assets/infected.png");
-  const deviceWidth = Dimensions.get("window").width;
-
   return (
     <>
       <Card
-        elevate={4}
         containerStyle={{
           ...styles.containerStyle,
           backgroundColor: "#d9534f",
