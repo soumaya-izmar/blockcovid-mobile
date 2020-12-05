@@ -7,57 +7,63 @@ import * as utilsServices from "../services/utils.js";
 const AuthContext = React.createContext(null);
 
 const ProviderWrapper = (props) => {
- 
-  const [state, setState] = React.useState({isLoading:true, userToken: null});
+  const [state, setState] = React.useState({
+    isLoading: true,
+    userToken: null,
+    clientId: null,
+  });
 
-  const signIn =  (data) => {
-    console.log("signIn")
-    console.log(data)
-    const newState ={
+  const signIn = (token, id) => {
+    console.log("signIn");
+
+    const newState = {
       ...state,
-      userToken: data,
+      userToken: token,
       isLoading: false,
-    }
+      clientId: id,
+    };
     setState(newState);
   };
-  
-  const restoreToken = (userToken) => {
-    const newState ={
+
+  const restoreToken = (userToken, id) => {
+    const newState = {
       ...state,
       userToken: userToken,
       isLoading: false,
-    }
+      clientId: id,
+    };
+    console.log("state", state);
     setState(newState);
   };
   const getAllInfo = () => {
-    /*  return utilsServices
+    console.log("get info");
+    return utilsServices
       .getAll()
       .then((response) => {
-        clientId = response[0].id;
-        
-     
+        console.log(response);
+        const clientInfo = {
+          clientId: response.uuid,
+          userToken: response.token,
+        };
+        AsyncStorage.setItem("clientInfo", JSON.stringify(clientInfo))
+          .then((result) => {
+            signIn(clientInfo.userToken, clientInfo.clientId);
+          })
+          .catch((error) => {
+            console.error(error);
+          });
       })
       .catch((error) => {
         console.error(error);
-      });*/
-     
-      AsyncStorage.setItem("id","2356glpas36djfdb256356h2dfg").then(result=>{
-      signIn("2356glpas36djfdb256356h2dfg");
-
-     })
-
-    return true;
+      });
   };
 
-
-
-
-  const authContextData ={
-    signIn :signIn,
-    state : state,
-    dispatch : restoreToken,
-    getAllInfo : getAllInfo
-  } 
+  const authContextData = {
+    signIn: signIn,
+    state: state,
+    dispatch: restoreToken,
+    getAllInfo: getAllInfo,
+  };
 
   return (
     <AuthContext.Provider value={authContextData}>
@@ -66,6 +72,6 @@ const ProviderWrapper = (props) => {
   );
 };
 
-export { ProviderWrapper, AuthContext};
+export { ProviderWrapper, AuthContext };
 
 export default AuthContext;

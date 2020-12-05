@@ -12,19 +12,23 @@ const CarouselInfo = () => {
       {
         title: "Lavez-vous les mains regulièrement avec du savon.",
         color: "#94ADFF",
+        idx:1
       },
       {
         title:
           "Limitez les contacts rapprochés(1,5m) avec d’autres personnes.",
         color: "#C78AFF",
+        idx:2
       },
       {
         title: "Portez un masque dans les endroits publique.",
         color: "#FFC180",
+        idx:3
       },
       {
-        title: "Si vous avez des symptomes de type grippal.Restez chez vous !",
+        title: "Si vous avez des symptomes de type grippal. Restez chez vous !",
         color: "#FFFE8F",
+        idx:4
       },
     ],
   };
@@ -37,10 +41,10 @@ const CarouselInfo = () => {
           flex: 1,
           backgroundColor: currentColor,
           borderRadius: 15,
-          padding: 32,
+      
           paddingTop :20,
-          marginLeft: +20,
-          marginRight: +20,
+          marginLeft: +18,
+          marginRight: +18,
           shadowColor: "#000000",
           shadowOpacity: 0.70,
           shadowRadius: 15.0,
@@ -49,6 +53,7 @@ const CarouselInfo = () => {
             width: 1,
           },
           elevation: 10,
+         
         }}
       >
         <Text
@@ -57,6 +62,22 @@ const CarouselInfo = () => {
             fontFamily: "Roboto",
             fontWeight: "bold",
             color: "black",
+            alignSelf:"flex-start",
+            paddingLeft: 10,
+          }}
+        >
+          Conseil n°{item.idx}:
+        </Text>
+        <Text
+          style={{
+            fontSize: 30,
+            fontFamily: "Roboto",
+            fontWeight: "bold",
+            color: "black",
+            alignSelf:"center",
+            paddingLeft: 10,
+            paddingTop:15
+            
           }}
         >
           {item.title}
@@ -80,7 +101,7 @@ const CarouselInfo = () => {
           sliderWidth={deviceWidth}
           itemWidth={deviceWidth}
           renderItem={_renderItem}
-          autoplayDelay={3000}
+          autoplayDelay={8000}
           autoplay={true}
           loop={true}
         />

@@ -14,7 +14,7 @@ const SafeState = () => {
       }}
     >
       <Card.Title style={styles.titleStyle}>LOW RISK</Card.Title>
-      <Card.Divider style={{ backgroundColor: "white" }} />
+    
       <ListItem
         containerStyle={{ ...styles.listItemStyle, backgroundColor: "#2DA145" }}
       >
@@ -39,7 +39,8 @@ const SafeState = () => {
       <ListItem
         containerStyle={{
           ...styles.listItemStyle,
-          backgroundColor: "#2DA145",
+          backgroundColor: "#2DA145"
+          ,paddingBottom:15
         }}
       >
         <Avatar icon={{ name: "calendar-check-o", type: "font-awesome" }} />

@@ -18,6 +18,7 @@ const FirstPage = ({ navigation }) => {
     //creation de l'id dans le backend + renvoie => context a ajouté
     getAllInfo();
   }
+  
 
   return (
     <>
@@ -29,9 +30,9 @@ const FirstPage = ({ navigation }) => {
         </View>
 
         <View style={{ flex: 3 }}>
-          <ButtonApp text={"Se connecter/S'inscrire"} />
-          <View style={styles.addPadding}></View>
-          <ButtonApp text={"Rester anonyme"} handler={anonymeHandler} />
+          <ButtonApp text={"Se connecter/S'inscrire"}  disable={true}  />
+          <View style={styles.addPadding} ></View>
+          <ButtonApp text={"Rester anonyme"} handler={anonymeHandler} disable={false}/>
         </View>
       </View>
     </>

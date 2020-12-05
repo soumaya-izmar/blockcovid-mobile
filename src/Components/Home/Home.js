@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import { Text, View, Dimensions } from "react-native";
+import Clipboard from '@react-native-community/clipboard';
 
 import styles from "../../styles/styles.js";
 import ButtonApp from "..//Button/ButtonApp.js";
@@ -13,7 +14,7 @@ import AuthContext from "../../contexts/MainContext";
 const Home = ({ navigation, route }) => {
   const { state } = React.useContext(AuthContext);
   console.log(state.userToken);
-  const deviceWidth = Dimensions.get("window").width;
+
   let currentEtat = "sain";
   const scanHandler = () => {
     navigation.navigate("QRcode");
@@ -21,11 +22,7 @@ const Home = ({ navigation, route }) => {
 
   return (
     <>
-      <View
-        style={{ flex: 0.5, alignItems: "center", justifyContent: "center" }}
-      >
-        <Text style={styles.textStyle}>BlockCovid</Text>
-      </View>
+      <View style={{ flex: 0.1 }}></View>
 
       <View style={styles.infoStyle}>
         <Carousel />
@@ -46,9 +43,13 @@ const Home = ({ navigation, route }) => {
           alignItems: "center",
         }}
       >
-        <ButtonApp text="Scanner un QR code" handler={scanHandler} />
+        <ButtonApp
+          text="Scanner un QR code"
+          handler={scanHandler}
+          disable={false}
+        />
       </View>
-      <Text style={styles.idStyle}>Id: {state.userToken}</Text>
+      <Text style={styles.idStyle}>Id: {state.clientId}</Text>
     </>
   );
 };

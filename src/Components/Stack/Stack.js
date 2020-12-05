@@ -19,11 +19,20 @@ const StackComp = () => {
   React.useEffect(() => {
     // Fetch the token from storage then navigate to our appropriate place
     const bootstrapAsync = async () => {
-      let userToken;
+      let clientInfo;
+
       try {
-        userToken = await AsyncStorage.getItem("id");
-      } catch (e) {}
-      dispatch(userToken);
+        let jsonValue = await AsyncStorage.getItem("clientInfo");
+        console.log("JSON", jsonValue);
+        clientInfo = jsonValue != null ? JSON.parse(jsonValue) : null;
+      } catch (e) {
+        console.log(e);
+      }
+      if (clientInfo === null) {
+        dispatch(null, null);
+      } else {
+        dispatch(clientInfo.userToken, clientInfo.clientId);
+      }
     };
 
     bootstrapAsync();
@@ -36,15 +45,19 @@ const StackComp = () => {
   return (
     <>
       <Stack.Navigator>
-        {state.userToken == null ? (
+        {state.clientId == null ? (
           <>
-            <Stack.Screen name="FirstPage" component={FirstPage} options={{
+            <Stack.Screen
+              name="FirstPage"
+              component={FirstPage}
+              options={{
                 title: "FirstPage",
                 headerStyle: {
                   backgroundColor: "white",
                 },
                 headerTintColor: "#fff",
-              }} />
+              }}
+            />
           </>
         ) : (
           <>
@@ -52,11 +65,11 @@ const StackComp = () => {
               name="Home"
               component={Home}
               options={{
-                title: "Home",
+                title: "BlockCovid",
                 headerStyle: {
                   backgroundColor: "white",
                 },
-                headerTintColor: "#fff",
+                headerTintColor: "black",
               }}
             />
             <Stack.Screen

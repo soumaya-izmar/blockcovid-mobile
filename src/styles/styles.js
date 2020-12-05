@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
     color: "white",
     fontFamily: Roboto_400Regular,
     fontWeight: "bold",
-    fontSize:20
+    fontSize: 20,
   },
   idStyle: {
     color: "black",
@@ -69,7 +69,7 @@ const styles = StyleSheet.create({
     padding: 0,
     borderRadius: 15,
     shadowColor: "#000000",
-    shadowOpacity: 0.70,
+    shadowOpacity: 0.7,
     shadowRadius: 15.0,
     shadowOffset: {
       height: 3,
@@ -78,12 +78,11 @@ const styles = StyleSheet.create({
     elevation: 10,
   },
 
- 
   titleStyle: {
     color: "#ECE9E9",
     textAlign: "left",
     fontSize: 20,
-    padding: 7,
+    padding: 15,
   },
   listItemStyle: {
     paddingBottom: 5,
@@ -91,8 +90,7 @@ const styles = StyleSheet.create({
     borderRadius: 15,
   },
   dividerStyle: {
-    backgroundColor: "white",
-    marginLeft: +20,
+    marginLeft: +50,
     marginRight: +20,
     padding: 0,
   },
@@ -100,6 +98,23 @@ const styles = StyleSheet.create({
   listItemTitleStyle: {
     color: "#ECE9E9",
     fontSize: 17,
+  },
+  centerText: {
+    flex: 1,
+    fontSize: 18,
+    padding: 32,
+    color: "#777",
+  },
+  textBold: {
+    fontWeight: "500",
+    color: "#000",
+  },
+  buttonText: {
+    fontSize: 21,
+    color: "rgb(0,122,255)",
+  },
+  buttonTouchable: {
+    padding: 16,
   },
 });
 
