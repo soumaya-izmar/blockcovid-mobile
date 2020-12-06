@@ -5,7 +5,7 @@ import Icon from "react-native-vector-icons/FontAwesome";
 
 import styles from "../../styles/styles";
 
-const ContactState = () => {
+const ContactState = ({date}) => {
   const infectedImage = require("../../../assets/infected.png");
   const deviceWidth = Dimensions.get("window").width;
 
@@ -18,7 +18,7 @@ const ContactState = () => {
         }}
       >
         <Card.Title style={styles.titleStyle}>MEDIUM RISK</Card.Title>
-        <Card.Divider style={{ backgroundColor: "white" }} />
+       
         <ListItem
           containerStyle={{
             ...styles.listItemStyle,

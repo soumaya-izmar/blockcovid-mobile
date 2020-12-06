@@ -3,7 +3,7 @@ import { useFonts, Roboto_400Regular } from "@expo-google-fonts/dev";
 import { StyleSheet, Dimensions } from "react-native";
 
 const deviceWidth = Dimensions.get("window").width;
-baseFontStyle = { fontFamily: "Roboto" };
+
 const styles = StyleSheet.create({
   Maincontainer: {
     flex: 1,
@@ -66,6 +66,7 @@ const styles = StyleSheet.create({
   },
 
   containerStyle: {
+    flex: 2.1,
     padding: 0,
     borderRadius: 15,
     shadowColor: "#000000",
@@ -115,6 +116,28 @@ const styles = StyleSheet.create({
   },
   buttonTouchable: {
     padding: 16,
+  },
+  loaderStyle: {
+    alignSelf: "center",
+    paddingTop: 50,
+  },
+
+  CarouselContainer: {
+    flex: 1,
+   
+    borderRadius: 15,
+
+    paddingTop: 20,
+    marginLeft: +18,
+    marginRight: +18,
+    shadowColor: "#000000",
+    shadowOpacity: 0.7,
+    shadowRadius: 15.0,
+    shadowOffset: {
+      height: 3,
+      width: 1,
+    },
+    elevation: 10,
   },
 });
 

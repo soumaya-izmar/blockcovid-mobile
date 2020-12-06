@@ -1,6 +1,9 @@
 import * as React from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
+import Backendless from "backendless";
+import "backendless-react-native";
+
 import * as utilsStorage from "../storage/asyncStorageUtils.js";
 import * as utilsServices from "../services/utils.js";
 
@@ -12,10 +15,44 @@ const ProviderWrapper = (props) => {
     userToken: null,
     clientId: null,
   });
+  const [homeState, setHomeState] = React.useState({
+    isHomeLoading: true,
+    etat: "au pif",
+    majDate: new Date(),
+  });
+
+  const restoreState = (userToken) => {
+    return utilsServices
+      .retrieveState(userToken)
+      .then((response) => {
+        const newHomeState = {
+          ...homeState,
+          isHomeLoading: false,
+          etat: response.etat,
+          majDate: new Date(),
+        };
+        setHomeState(newHomeState);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const onNotification = (notification) => {
+    //faire la requete sur le backend
+    const newHomeState = {
+      ...homeState,
+      etat: "sain",
+    };
+    setHomeState(newHomeState);
+    console.log("notification 2.0");
+  };
+
+  const componentDidMount = () => {
+    Backendless.Messaging.addPushNotificationListener(onNotification);
+  };
 
   const signIn = (token, id) => {
-    console.log("signIn");
-
     const newState = {
       ...state,
       userToken: token,
@@ -32,15 +69,13 @@ const ProviderWrapper = (props) => {
       isLoading: false,
       clientId: id,
     };
-    console.log("state", state);
+
     setState(newState);
   };
-  const getAllInfo = () => {
-    console.log("get info");
+  const getClientInfo = () => {
     return utilsServices
-      .getAll()
+      .getClient()
       .then((response) => {
-        console.log(response);
         const clientInfo = {
           clientId: response.uuid,
           userToken: response.token,
@@ -61,8 +96,10 @@ const ProviderWrapper = (props) => {
   const authContextData = {
     signIn: signIn,
     state: state,
+    homeState: homeState,
     dispatch: restoreToken,
-    getAllInfo: getAllInfo,
+    getClientInfo: getClientInfo,
+    restoreState: restoreState,
   };
 
   return (

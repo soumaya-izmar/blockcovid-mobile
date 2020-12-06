@@ -10,6 +10,7 @@ npm-debug.*
 *.orig.*
 web-build/
 android/java_pid10400.hprof
+.env
 # macOS
 .DS_Store
 

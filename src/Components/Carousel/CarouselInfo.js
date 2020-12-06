@@ -1,7 +1,8 @@
-import React, { useContext } from "react";
+import React from "react";
 import { Text, View, Dimensions, SafeAreaView } from "react-native";
-
 import Carousel from "react-native-snap-carousel";
+
+import styles from "../../styles/styles";
 
 const CarouselInfo = () => {
   const deviceWidth = Dimensions.get("window").width;
@@ -12,23 +13,22 @@ const CarouselInfo = () => {
       {
         title: "Lavez-vous les mains regulièrement avec du savon.",
         color: "#94ADFF",
-        idx:1
+        idx: 1,
       },
       {
-        title:
-          "Limitez les contacts rapprochés(1,5m) avec d’autres personnes.",
+        title: "Limitez les contacts rapprochés(1,5m) avec d’autres personnes.",
         color: "#C78AFF",
-        idx:2
+        idx: 2,
       },
       {
         title: "Portez un masque dans les endroits publique.",
         color: "#FFC180",
-        idx:3
+        idx: 3,
       },
       {
         title: "Si vous avez des symptomes de type grippal. Restez chez vous !",
         color: "#FFFE8F",
-        idx:4
+        idx: 4,
       },
     ],
   };
@@ -37,24 +37,7 @@ const CarouselInfo = () => {
     let currentColor = item.color;
     return (
       <View
-        style={{
-          flex: 1,
-          backgroundColor: currentColor,
-          borderRadius: 15,
-      
-          paddingTop :20,
-          marginLeft: +18,
-          marginRight: +18,
-          shadowColor: "#000000",
-          shadowOpacity: 0.70,
-          shadowRadius: 15.0,
-          shadowOffset: {
-            height: 3,
-            width: 1,
-          },
-          elevation: 10,
-         
-        }}
+        style={{ ...styles.CarouselContainer, backgroundColor: currentColor }}
       >
         <Text
           style={{
@@ -62,7 +45,7 @@ const CarouselInfo = () => {
             fontFamily: "Roboto",
             fontWeight: "bold",
             color: "black",
-            alignSelf:"flex-start",
+            alignSelf: "flex-start",
             paddingLeft: 10,
           }}
         >
@@ -74,10 +57,9 @@ const CarouselInfo = () => {
             fontFamily: "Roboto",
             fontWeight: "bold",
             color: "black",
-            alignSelf:"center",
+            alignSelf: "center",
             paddingLeft: 10,
-            paddingTop:15
-            
+            paddingTop: 15,
           }}
         >
           {item.title}

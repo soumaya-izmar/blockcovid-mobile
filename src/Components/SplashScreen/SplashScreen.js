@@ -1,10 +1,10 @@
 import * as React from "react";
 
-import { Text, View } from "react-native";
+import { Text} from "react-native";
 
 
 const SplashScreen =()=>{
- return <Text>Chargement...</Text>
+ return <Text></Text>
 }
 
 export default SplashScreen;

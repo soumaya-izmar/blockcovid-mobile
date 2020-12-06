@@ -17,9 +17,9 @@ const QRcode = ({ navigation }) => {
 
   const readQrCodeSuccess = (e) => {
     console.log("QrCOde", e.data);
+   
     ToastAndroid.show("QR code enregistré", ToastAndroid.CENTER);
    
-
     navigation.goBack();
   };
 

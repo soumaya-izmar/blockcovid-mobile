@@ -1,11 +1,11 @@
 import React from "react";
-import { Text, View, Image, Dimensions } from "react-native";
+
 import { Card, ListItem, Button, Avatar } from "react-native-elements";
 import Icon from "react-native-vector-icons/FontAwesome";
 
 import styles from "../../styles/styles";
 
-const CovidState = () => {
+const CovidState = ({date}) => {
   return (
     <>
       <Card
@@ -15,7 +15,7 @@ const CovidState = () => {
         }}
       >
         <Card.Title style={styles.titleStyle}>HIGH RISK</Card.Title>
-        <Card.Divider style={{ backgroundColor: "white" }} />
+        
         <ListItem
           containerStyle={{
             ...styles.listItemStyle,

@@ -11,12 +11,12 @@ import ButtonApp from "../Button/ButtonApp.js";
 
 const FirstPage = ({ navigation }) => {
  
-  const { getAllInfo } = React.useContext(AuthContext);
+  const { getClientInfo } = React.useContext(AuthContext);
    
   function anonymeHandler(e) {
     e.preventDefault();
     //creation de l'id dans le backend + renvoie => context a ajouté
-    getAllInfo();
+    getClientInfo();
   }
   
 

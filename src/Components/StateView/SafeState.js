@@ -5,7 +5,7 @@ import { Card, ListItem, Button, Avatar } from "react-native-elements";
 import Icon from "react-native-vector-icons/FontAwesome";
 import styles from "../../styles/styles";
 
-const SafeState = () => {
+const SafeState = ({ date }) => {
   return (
     <Card
       containerStyle={{
@@ -14,7 +14,7 @@ const SafeState = () => {
       }}
     >
       <Card.Title style={styles.titleStyle}>LOW RISK</Card.Title>
-    
+
       <ListItem
         containerStyle={{ ...styles.listItemStyle, backgroundColor: "#2DA145" }}
       >
@@ -39,13 +39,20 @@ const SafeState = () => {
       <ListItem
         containerStyle={{
           ...styles.listItemStyle,
-          backgroundColor: "#2DA145"
-          ,paddingBottom:15
+          backgroundColor: "#2DA145",
+          paddingBottom: 15,
         }}
       >
         <Avatar icon={{ name: "calendar-check-o", type: "font-awesome" }} />
         <ListItem.Title style={styles.listItemTitleStyle}>
-          mise à jour : 22/12 à 12h13
+          mise à jour :{" "}
+          {date.getDate() +
+            "/" +
+            (date.getMonth()+1) +
+            " à " +
+            date.getHours() +
+            ":" +
+            date.getMinutes()}
         </ListItem.Title>
       </ListItem>
     </Card>
