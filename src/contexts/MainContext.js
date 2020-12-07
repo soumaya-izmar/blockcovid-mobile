@@ -1,8 +1,8 @@
 import * as React from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-import Backendless from "backendless";
-import "backendless-react-native";
+import messaging from "@react-native-firebase/messaging";
+import firebase from "react-native-firebase";
 
 import * as utilsStorage from "../storage/asyncStorageUtils.js";
 import * as utilsServices from "../services/utils.js";
@@ -17,7 +17,7 @@ const ProviderWrapper = (props) => {
   });
   const [homeState, setHomeState] = React.useState({
     isHomeLoading: true,
-    etat: "au pif",
+    etat: "Sain",
     majDate: new Date(),
   });
 
@@ -36,20 +36,6 @@ const ProviderWrapper = (props) => {
       .catch((error) => {
         console.log(error);
       });
-  };
-
-  const onNotification = (notification) => {
-    //faire la requete sur le backend
-    const newHomeState = {
-      ...homeState,
-      etat: "sain",
-    };
-    setHomeState(newHomeState);
-    console.log("notification 2.0");
-  };
-
-  const componentDidMount = () => {
-    Backendless.Messaging.addPushNotificationListener(onNotification);
   };
 
   const signIn = (token, id) => {
@@ -73,24 +59,42 @@ const ProviderWrapper = (props) => {
     setState(newState);
   };
   const getClientInfo = () => {
-    return utilsServices
-      .getClient()
+    let deviceToken = null;
+    getFcmToken()
       .then((response) => {
-        const clientInfo = {
-          clientId: response.uuid,
-          userToken: response.token,
-        };
-        AsyncStorage.setItem("clientInfo", JSON.stringify(clientInfo))
-          .then((result) => {
-            signIn(clientInfo.userToken, clientInfo.clientId);
+        deviceToken = response;
+
+        console.log("Your Firebase Token is:", deviceToken);
+        return utilsServices
+          .getClient(deviceToken)
+          .then((response) => {
+            const clientInfo = {
+              clientId: response.uuid,
+              userToken: response.token,
+            };
+            AsyncStorage.setItem("clientInfo", JSON.stringify(clientInfo))
+              .then((result) => {
+                signIn(clientInfo.userToken, clientInfo.clientId);
+              })
+              .catch((error) => {
+                console.error(error);
+              });
           })
           .catch((error) => {
             console.error(error);
           });
       })
-      .catch((error) => {
-        console.error(error);
-      });
+      .catch((e) => console.log(e));
+  };
+
+  const getFcmToken = async () => {
+    const fcmToken = await messaging().getToken();
+    console.log(fcmToken);
+    if (fcmToken) {
+      return fcmToken;
+    } else {
+      console.log("Failed", "No token received");
+    }
   };
 
   const authContextData = {
@@ -100,6 +104,7 @@ const ProviderWrapper = (props) => {
     dispatch: restoreToken,
     getClientInfo: getClientInfo,
     restoreState: restoreState,
+    getFcmToken: getFcmToken,
   };
 
   return (

@@ -2,17 +2,17 @@ import "react-native-gesture-handler";
 import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 
+import messaging from "@react-native-firebase/messaging";
+import firebase from "react-native-firebase";
+
 
 import { ProviderWrapper as ProviderWrapper } from "./src/contexts/MainContext";
 
 import Stack from "./src/Components/Stack/Stack.js";
 
-
-
-
-
-
 export default function AppMain() {
+    
+
   return (
     <>
       <ProviderWrapper>
@@ -23,5 +23,3 @@ export default function AppMain() {
     </>
   );
 }
-
-

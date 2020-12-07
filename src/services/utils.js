@@ -1,22 +1,22 @@
 import axios from "axios";
 import { BASEURL } from "@env";
 
-const getClient = () => {
+const getClient = (deviceToken) => {
   return axios
-    .post(`${BASEURL}` + "/auth/register/citoyen")
+    .post(`${BASEURL}` + "/auth/register/citoyen", {
+      params: { deviceToken: deviceToken },
+    })
     .then((response) => {
       return response.data;
     });
 };
 
 const retrieveState = (token) => {
-  
   return axios
     .get(`${BASEURL}` + "/citoyen", {
       headers: { Authorization: `Bearer ${token}` },
     })
     .then((response) => {
-      console.log(response.data);
       return response.data;
     });
 };

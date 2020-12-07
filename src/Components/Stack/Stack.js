@@ -1,7 +1,6 @@
 import * as React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 
-
 import * as utilsStorage from "../../storage/asyncStorageUtils.js";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
@@ -17,8 +16,6 @@ const Stack = createStackNavigator();
 const StackComp = () => {
   const { state, dispatch } = React.useContext(AuthContext);
 
- 
-
   React.useEffect(() => {
     // Fetch the token from storage then navigate to our appropriate place
     const bootstrapAsync = async () => {
@@ -26,7 +23,7 @@ const StackComp = () => {
 
       try {
         let jsonValue = await AsyncStorage.getItem("clientInfo");
-        console.log("JSON", jsonValue);
+
         clientInfo = jsonValue != null ? JSON.parse(jsonValue) : null;
       } catch (e) {
         console.log(e);

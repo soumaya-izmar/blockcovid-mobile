@@ -23,7 +23,7 @@ const Home = ({ navigation, route }) => {
       let clientInfo;
       try {
         let jsonValue = await AsyncStorage.getItem("clientInfo");
-        console.log("JSON", jsonValue);
+     
         clientInfo =
           jsonValue != null
             ? JSON.parse(jsonValue)

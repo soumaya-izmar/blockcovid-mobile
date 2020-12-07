@@ -16,6 +16,7 @@ const FirstPage = ({ navigation }) => {
   function anonymeHandler(e) {
     e.preventDefault();
     //creation de l'id dans le backend + renvoie => context a ajouté
+  
     getClientInfo();
   }
   

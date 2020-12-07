@@ -1,6 +1,6 @@
 import React from "react";
 import { Text, View, Image, Dimensions } from "react-native";
-import LinearGradient from "react-native-linear-gradient";
+
 import { Card, ListItem, Button, Avatar } from "react-native-elements";
 import Icon from "react-native-vector-icons/FontAwesome";
 import styles from "../../styles/styles";
@@ -48,7 +48,7 @@ const SafeState = ({ date }) => {
           mise à jour :{" "}
           {date.getDate() +
             "/" +
-            (date.getMonth()+1) +
+            (date.getMonth() + 1) +
             " à " +
             date.getHours() +
             ":" +
