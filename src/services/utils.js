@@ -23,15 +23,15 @@ const retrieveState = (token) => {
 
 const sendQrcode = (clientId, qrcodeId, token) => {
   return axios
-    .get(
-      `${BASEURL}` + "/citoyen",
+    .post(
+      `${BASEURL}` + "/scan/" + qrcodeId,
       {
         headers: { Authorization: `Bearer ${token}` },
       },
-      { params: { uuid: clientId, qrcode: qrcodeId } }
+      { params: { uuid: clientId } }
     )
     .then((response) => {
-      console.log(response.data);
+      console.log("response", response.data);
       return response.data;
     });
 };

@@ -1,57 +1,62 @@
 import React from "react";
-import { Text, View, Image, Dimensions } from "react-native";
-import { Card, ListItem, Button, Avatar } from "react-native-elements";
-import Icon from "react-native-vector-icons/FontAwesome";
+import { Card, ListItem,Avatar } from "react-native-elements";
 
 import styles from "../../styles/styles";
 
-const ContactState = ({date}) => {
-  const infectedImage = require("../../../assets/infected.png");
-  const deviceWidth = Dimensions.get("window").width;
-
+const ContactState = ({ date, nbLieux }) => {
   return (
     <>
       <Card
         containerStyle={{
           ...styles.containerStyle,
-          backgroundColor: "#f0ad4e",
+          backgroundColor: "#F29C19",
         }}
       >
-        <Card.Title style={styles.titleStyle}>MEDIUM RISK</Card.Title>
-       
+        <Card.Title style={styles.titleStyle}>Risque moyen</Card.Title>
+
         <ListItem
           containerStyle={{
             ...styles.listItemStyle,
-            backgroundColor: "#f0ad4e",
+            backgroundColor: "#F29C19",
           }}
         >
           <Avatar icon={{ name: "heart", type: "font-awesome" }} />
           <ListItem.Title style={styles.listItemTitleStyle}>
-            Une ou plusieurs expositions au virus
+            Une ou plusieurs exposition(s) au virus
           </ListItem.Title>
         </ListItem>
         <Card.Divider style={styles.dividerStyle} />
         <ListItem
           containerStyle={{
             ...styles.listItemStyle,
-            backgroundColor: "#f0ad4e",
+            backgroundColor: "#F29C19",
           }}
         >
-          <Avatar icon={{ name: "home", type: "font-awesome" }} />
+          <Avatar icon={{ name: "place", type: "MaterialIcons" }}/>
           <ListItem.Title style={styles.listItemTitleStyle}>
-            Autres informations
+            Nombre de lieux visités : {nbLieux}
           </ListItem.Title>
         </ListItem>
         <Card.Divider style={styles.dividerStyle} />
         <ListItem
           containerStyle={{
             ...styles.listItemStyle,
-            backgroundColor: "#f0ad4e",
+            backgroundColor: "#F29C19",
           }}
         >
           <Avatar icon={{ name: "calendar-check-o", type: "font-awesome" }} />
           <ListItem.Title style={styles.listItemTitleStyle}>
-            mise à jour : 22/12 à 12h13
+            Mise à jour :
+            {" " +
+              date.getDate() +
+              "/" +
+              (date.getMonth() + 1) +
+              " à " +
+              date.getHours() +
+              "h" +
+              (date.getMinutes() < 10
+                ? "0" + date.getMinutes()
+                : date.getMinutes())}
           </ListItem.Title>
         </ListItem>
       </Card>

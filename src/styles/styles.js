@@ -84,6 +84,7 @@ const styles = StyleSheet.create({
     textAlign: "left",
     fontSize: 20,
     padding: 15,
+    fontWeight:"bold"
   },
   listItemStyle: {
     paddingBottom: 5,

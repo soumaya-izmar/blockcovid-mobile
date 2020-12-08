@@ -1,7 +1,8 @@
-import React, { useContext } from "react";
-import { Text, View, Dimensions } from "react-native";
-import Clipboard from "@react-native-community/clipboard";
+import * as React from "react";
+import { Text, View } from "react-native";
+import { Overlay } from "react-native-elements";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+
 import { SAFESTATE, CONTACTSTATE, COVIDSTATE } from "@env";
 
 import AuthContext from "../../contexts/MainContext";
@@ -14,16 +15,28 @@ import SafeState from "../StateView/SafeState.js";
 import Carousel from "../Carousel/CarouselInfo.js";
 import Loader from "../Loader/Loader.js";
 
-const Home = ({ navigation, route }) => {
+const Home = ({ navigation }) => {
   const { state, homeState, restoreState } = React.useContext(AuthContext);
+  const [alert, setAlert] = React.useState({ visible: false, time: 0 });
+
+  const toggleOverlay = () => {
+    setAlert({
+      visible: !alert.visible,
+      time: alert.time + 1,
+    });
+  };
 
   React.useEffect(() => {
     // Fetch the token from storage then navigate to our appropriate place
     const bootstrapAsync = async () => {
       let clientInfo;
+      let nbLieux;
       try {
         let jsonValue = await AsyncStorage.getItem("clientInfo");
-     
+        nbLieux = await AsyncStorage.getItem("nbLieux");
+
+        nbLieux = nbLieux != null ? nbLieux : 0;
+        nbLieux = JSON.parse(nbLieux);
         clientInfo =
           jsonValue != null
             ? JSON.parse(jsonValue)
@@ -31,20 +44,39 @@ const Home = ({ navigation, route }) => {
       } catch (error) {
         console.log(error);
       }
-      restoreState(clientInfo.userToken);
+      restoreState(clientInfo.userToken, nbLieux);
     };
 
     bootstrapAsync();
+    console.log("AAAAAAAAAAAA=>", homeState.nbLieuxVisite);
   }, []);
 
   let currentEtat = homeState.etat;
+
   let majDate = homeState.majDate;
+
   const scanHandler = () => {
     navigation.navigate("QRcode");
   };
 
+  if (homeState.nbLieuxVisite >= 5 && alert.time === 0) {
+    console.log("fldjgh");
+    toggleOverlay();
+  }
+
   return (
     <>
+      <Overlay
+        isVisible={alert.visible && alert.time === 1}
+        onBackdropPress={toggleOverlay}
+        backdropStyle={{ flex: 1, padding: 15 }}
+      >
+        <Text style={{ fontSize: 30, margin: 10 }}>
+          L'heure est grave,vous avez visité plus de 5 lieux aujourd'hui!!
+          RENTREZ CHEZ-VOUS!!!!!
+        </Text>
+      </Overlay>
+
       <View style={{ flex: 0.1 }}></View>
 
       <View style={styles.infoStyle}>
@@ -54,11 +86,11 @@ const Home = ({ navigation, route }) => {
       {homeState.isHomeLoading ? (
         <Loader />
       ) : currentEtat === `${COVIDSTATE}` ? (
-        <CovidState date={majDate} />
+        <CovidState date={majDate} nbLieux={homeState.nbLieuxVisite} />
       ) : currentEtat === `${SAFESTATE}` ? (
-        <SafeState date={majDate} />
+        <SafeState date={majDate} nbLieux={homeState.nbLieuxVisite} />
       ) : (
-        <ContactState date={majDate} />
+        <ContactState date={majDate} nbLieux={homeState.nbLieuxVisite} />
       )}
 
       <View style={{ flex: 0.3 }}></View>

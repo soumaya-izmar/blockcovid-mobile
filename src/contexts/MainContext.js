@@ -2,9 +2,12 @@ import * as React from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import messaging from "@react-native-firebase/messaging";
-import firebase from "react-native-firebase";
 
-import * as utilsStorage from "../storage/asyncStorageUtils.js";
+import {
+  Alert
+} from "react-native";
+
+
 import * as utilsServices from "../services/utils.js";
 
 const AuthContext = React.createContext(null);
@@ -19,22 +22,25 @@ const ProviderWrapper = (props) => {
     isHomeLoading: true,
     etat: "Sain",
     majDate: new Date(),
+    nbLieuxVisite: 0,
   });
 
-  const restoreState = (userToken) => {
+  const restoreState = (userToken, nbLieux) => {
     return utilsServices
       .retrieveState(userToken)
       .then((response) => {
+        console.log("token", response);
         const newHomeState = {
           ...homeState,
           isHomeLoading: false,
           etat: response.etat,
           majDate: new Date(),
+          nbLieuxVisite: nbLieux,
         };
         setHomeState(newHomeState);
       })
       .catch((error) => {
-        console.log(error);
+        console.log(error.response.data.error);
       });
   };
 
@@ -81,7 +87,7 @@ const ProviderWrapper = (props) => {
               });
           })
           .catch((error) => {
-            console.error(error);
+            console.log(error.response.data.error);
           });
       })
       .catch((e) => console.log(e));
@@ -89,12 +95,50 @@ const ProviderWrapper = (props) => {
 
   const getFcmToken = async () => {
     const fcmToken = await messaging().getToken();
-    console.log(fcmToken);
+
     if (fcmToken) {
       return fcmToken;
     } else {
       console.log("Failed", "No token received");
     }
+  };
+
+  const sendQrCode = (qrcode) => {
+    utilsServices
+      .sendQrcode(state.clientId, qrcode, state.userToken)
+      .then((response) => {
+        let date = new Date();
+        let nbLieux = 0;
+        if (response.nbLieuxVisitesDansLaJournee !== 0) {
+          nbLieux = response.nbLieuxVisitesDansLaJournee;
+          console.log("nbLieux", nbLieux);
+          AsyncStorage.setItem("nbLieux", JSON.stringify(nbLieux));
+        }
+        setHomeState({
+          ...homeState,
+          isHomeLoading: false,
+          etat: response.citoyen.etat,
+          majDate: date,
+          nbLieuxVisite: nbLieux,
+        });
+      })
+      .catch((error) => {
+        console.log(error.response.data.error);
+        let errorMessage =error.response.data.error; 
+        Alert.alert(
+          "Une erreur s'est produite",
+           {errorMessage},
+          [
+            {
+              text: "Cancel",
+              onPress: () => console.log("Cancel Pressed"),
+              style: "cancel",
+            },
+            { text: "OK", onPress: () => console.log("OK Pressed") },
+          ],
+          { cancelable: false }
+        );
+      });
   };
 
   const authContextData = {
@@ -105,6 +149,7 @@ const ProviderWrapper = (props) => {
     getClientInfo: getClientInfo,
     restoreState: restoreState,
     getFcmToken: getFcmToken,
+    sendQrCode: sendQrCode,
   };
 
   return (
