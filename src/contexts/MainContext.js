@@ -3,10 +3,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import messaging from "@react-native-firebase/messaging";
 
-import {
-  Alert
-} from "react-native";
-
+import { Alert ,ToastAndroid} from "react-native";
 
 import * as utilsServices from "../services/utils.js";
 
@@ -29,7 +26,6 @@ const ProviderWrapper = (props) => {
     return utilsServices
       .retrieveState(userToken)
       .then((response) => {
-        console.log("token", response);
         const newHomeState = {
           ...homeState,
           isHomeLoading: false,
@@ -41,6 +37,13 @@ const ProviderWrapper = (props) => {
       })
       .catch((error) => {
         console.log(error.response.data.error);
+        let errorMessage = error.response.data.error;
+        Alert.alert(
+          "Une erreur s'est produite",
+          errorMessage,
+          [{ text: "OK", onPress: () => console.log("OK Pressed") }],
+          { cancelable: false }
+        );
       });
   };
 
@@ -87,7 +90,14 @@ const ProviderWrapper = (props) => {
               });
           })
           .catch((error) => {
-            console.log(error.response.data.error);
+            let errorMessage = error.response.data.error;
+            Alert.alert(
+              "Une erreur s'est produite",
+              errorMessage +
+                " : Token non-attribuer, veuillez réssayer plus-tard.",
+              [{ text: "OK", onPress: () => console.log("OK Pressed") }],
+              { cancelable: false }
+            );
           });
       })
       .catch((e) => console.log(e));
@@ -121,21 +131,15 @@ const ProviderWrapper = (props) => {
           majDate: date,
           nbLieuxVisite: nbLieux,
         });
+        ToastAndroid.show("QR code enregistré", ToastAndroid.CENTER);
       })
       .catch((error) => {
-        console.log(error.response.data.error);
-        let errorMessage =error.response.data.error; 
+        console.log(error.message);
+        let errorMessage = error.message;
         Alert.alert(
           "Une erreur s'est produite",
-           {errorMessage},
-          [
-            {
-              text: "Cancel",
-              onPress: () => console.log("Cancel Pressed"),
-              style: "cancel",
-            },
-            { text: "OK", onPress: () => console.log("OK Pressed") },
-          ],
+          errorMessage,
+          [{ text: "OK", onPress: () => console.log("OK Pressed") }],
           { cancelable: false }
         );
       });

@@ -22,7 +22,7 @@ const CovidState = ({ date, nbLieux }) => {
         >
           <Avatar icon={{ name: "heart", type: "font-awesome" }} />
           <ListItem.Title style={styles.listItemTitleStyle}>
-            Vous etes contaminé par le Coronavirus.
+            Vous êtes contaminés par le virus.
           </ListItem.Title>
         </ListItem>
         <Card.Divider style={styles.dividerStyle} />
@@ -32,7 +32,7 @@ const CovidState = ({ date, nbLieux }) => {
             backgroundColor: "#d9534f",
           }}
         >
-          import Icon from "react-native-vector-icons/MaterialIcons";
+          <Avatar icon={{ name: "place", type: "MaterialIcons" }} />
           <ListItem.Title style={styles.listItemTitleStyle}>
             Nombre de lieux visités : {nbLieux}
           </ListItem.Title>
@@ -44,7 +44,7 @@ const CovidState = ({ date, nbLieux }) => {
             backgroundColor: "#d9534f",
           }}
         >
-          <Avatar icon={{ name: "place", type: "MaterialIcons" }} />
+          <Avatar icon={{ name: "calendar-check-o", type: "font-awesome" }} />
           <ListItem.Title style={styles.listItemTitleStyle}>
             Mise à jour :
             {" " +

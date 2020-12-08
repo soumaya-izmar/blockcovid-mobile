@@ -41,7 +41,7 @@ const SafeState = ({ date, nbLieux }) => {
           paddingBottom: 15,
         }}
       >
-        <Avatar icon={{ name: "calendar-check-o", type: "font-awesome" }} />
+        <Avatar icon={{ name: "calendar-check-o", type: "font-awesome" }}/>
         <ListItem.Title style={styles.listItemTitleStyle}>
           Mise à jour :
           {" " +
