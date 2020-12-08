@@ -1,5 +1,5 @@
 import React from "react";
-import { Text, ToastAndroid } from "react-native";
+import { Text} from "react-native";
 
 import QRCodeScanner from "react-native-qrcode-scanner";
 import { RNCamera } from "react-native-camera";
@@ -15,8 +15,6 @@ const QRcode = ({ navigation }) => {
     console.log("QrCOde", e.data);
 
     sendQrCode(e.data);
-   // ToastAndroid.show("QR code enregistré", ToastAndroid.CENTER);
-
     navigation.goBack();
   };
 
