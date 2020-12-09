@@ -2,9 +2,10 @@ import axios from "axios";
 import { BASEURL } from "@env";
 
 const getClient = (deviceToken) => {
+  console.log("is Token null? ", deviceToken);
   return axios
     .post(`${BASEURL}` + "/auth/register/citoyen", {
-      params: { deviceToken: deviceToken },
+     deviceToken: deviceToken ,
     })
     .then((response) => {
       return response.data;
@@ -28,7 +29,7 @@ const sendQrcode = (clientId, qrcodeId, token) => {
       {
         headers: { Authorization: `Bearer ${token}` },
       },
-      { params: { uuid: clientId } }
+      { data: { uuid: clientId } }
     )
     .then((response) => {
       console.log("response", response.data);

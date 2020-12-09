@@ -72,7 +72,6 @@ const ProviderWrapper = (props) => {
     getFcmToken()
       .then((response) => {
         deviceToken = response;
-
         console.log("Your Firebase Token is:", deviceToken);
         return utilsServices
           .getClient(deviceToken)
