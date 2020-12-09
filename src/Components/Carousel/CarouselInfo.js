@@ -1,10 +1,10 @@
-import React from "react";
+import * as React from "react";
 import { Text, View, Dimensions, SafeAreaView } from "react-native";
 import Carousel from "react-native-snap-carousel";
 
 import styles from "../../styles/styles";
 
-const CarouselInfo = () => {
+const CarouselInfo = React.memo(function CarouselInfo() {
   const deviceWidth = Dimensions.get("window").width;
 
   const state = {
@@ -83,13 +83,12 @@ const CarouselInfo = () => {
           sliderWidth={deviceWidth}
           itemWidth={deviceWidth}
           renderItem={_renderItem}
-          autoplayDelay={8000}
           autoplay={true}
           loop={true}
         />
       </View>
     </SafeAreaView>
   );
-};
+});
 
 export default CarouselInfo;

@@ -3,7 +3,8 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import messaging from "@react-native-firebase/messaging";
 
-import { Alert ,ToastAndroid} from "react-native";
+import { Alert, ToastAndroid } from "react-native";
+import SweetAlert from "react-native-sweet-alert";
 
 import * as utilsServices from "../services/utils.js";
 
@@ -38,11 +39,13 @@ const ProviderWrapper = (props) => {
       .catch((error) => {
         console.log(error.response.data.error);
         let errorMessage = error.response.data.error;
-        Alert.alert(
-          "Une erreur s'est produite",
-          errorMessage,
-          [{ text: "OK", onPress: () => console.log("OK Pressed") }],
-          { cancelable: false }
+        SweetAlert.showAlertWithOptions(
+          {
+            title: "Une erreur s'est produite",
+            subTitle: errorMessage,
+            style: "error",
+          },
+          (callback) => console.log("callback")
         );
       });
   };
@@ -90,12 +93,16 @@ const ProviderWrapper = (props) => {
           })
           .catch((error) => {
             let errorMessage = error.response.data.error;
-            Alert.alert(
-              "Une erreur s'est produite",
-              errorMessage +
-                " : Token non-attribuer, veuillez réssayer plus-tard.",
-              [{ text: "OK", onPress: () => console.log("OK Pressed") }],
-              { cancelable: false }
+
+            SweetAlert.showAlertWithOptions(
+              {
+                title: "Une erreur s'est produite",
+                subTitle:
+                  errorMessage +
+                  " : Token non-attribuer, veuillez réssayer plus-tard.",
+                style: "error",
+              },
+              (callback) => console.log("callback")
             );
           });
       })
@@ -135,11 +142,13 @@ const ProviderWrapper = (props) => {
       .catch((error) => {
         console.log(error.message);
         let errorMessage = error.message;
-        Alert.alert(
-          "Une erreur s'est produite",
-          errorMessage,
-          [{ text: "OK", onPress: () => console.log("OK Pressed") }],
-          { cancelable: false }
+        SweetAlert.showAlertWithOptions(
+          {
+            title: "Une erreur s'est produite",
+            subTitle: errorMessage,
+            style: "error",
+          },
+          (callback) => console.log("callback")
         );
       });
   };

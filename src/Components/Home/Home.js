@@ -2,6 +2,8 @@ import * as React from "react";
 import { Text, View } from "react-native";
 import { Overlay } from "react-native-elements";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import messaging from "@react-native-firebase/messaging";
+import SweetAlert from "react-native-sweet-alert";
 
 import { SAFESTATE, CONTACTSTATE, COVIDSTATE } from "@env";
 
@@ -47,8 +49,22 @@ const Home = ({ navigation }) => {
       restoreState(clientInfo.userToken, nbLieux);
     };
 
+    const unsubscribe = messaging().onMessage(async (remoteMessage) => {
+      console.log("notif ");
+      SweetAlert.showAlertWithOptions(
+        {
+          title: remoteMessage.notification.title,
+          subTitle: remoteMessage.notification.body,
+          style: "warning",
+        },
+        (callback) => {
+          bootstrapAsync();
+          console.log("callback");
+        }
+      );
+    });
+
     bootstrapAsync();
-    console.log("AAAAAAAAAAAA=>", homeState.nbLieuxVisite);
   }, []);
 
   let currentEtat = homeState.etat;
@@ -59,24 +75,25 @@ const Home = ({ navigation }) => {
     navigation.navigate("QRcode");
   };
 
+
   if (homeState.nbLieuxVisite >= 5 && alert.time === 0) {
-    console.log("fldjgh");
+    SweetAlert.showAlertWithOptions(
+      {
+        title: "Information importante",
+        subTitle:
+          "vous avez visité plus de 5 lieux aujourd'hui. RENTREZ CHEZ-VOUS!!!!!",
+        style: "warning",
+      },
+      (callback) => {
+        console.log("callback");
+      }
+    );
+
     toggleOverlay();
   }
 
   return (
     <>
-      <Overlay
-        isVisible={alert.visible && alert.time === 1}
-        onBackdropPress={toggleOverlay}
-        backdropStyle={{ flex: 1, padding: 15 }}
-      >
-        <Text style={{ fontSize: 30, margin: 10 }}>
-          L'heure est grave,vous avez visité plus de 5 lieux aujourd'hui!!
-          RENTREZ CHEZ-VOUS!!!!!
-        </Text>
-      </Overlay>
-
       <View style={{ flex: 0.1 }}></View>
 
       <View style={styles.infoStyle}>

@@ -1,20 +1,31 @@
 import React from "react";
-import { Text} from "react-native";
+import { Text, Alert } from "react-native";
 
 import QRCodeScanner from "react-native-qrcode-scanner";
 import { RNCamera } from "react-native-camera";
+
+import { CONTACTSTATE, COVIDSTATE } from "@env";
 
 import AuthContext from "../../contexts/MainContext";
 
 import styles from "../../styles/styles.js";
 
 const QRcode = ({ navigation }) => {
-  const { sendQrCode } = React.useContext(AuthContext);
+  const { sendQrCode, homeState } = React.useContext(AuthContext);
 
   const readQrCodeSuccess = (e) => {
-    console.log("QrCOde", e.data);
-
-    sendQrCode(e.data);
+  
+    if (homeState.etat === CONTACTSTATE || homeState.etat === COVIDSTATE) {
+      //console.log("etat ==>" ,homeState.etat)
+      Alert.alert(
+        "Respectez les règles",
+        "Veuillez respectez les règles sanitaires et rentrez chez vous.",
+        [{ text: "OK", onPress: () => console.log("OK Pressed") }],
+        { cancelable: false }
+      );
+    } else {
+      sendQrCode(e.data);
+    }
     navigation.goBack();
   };
 
