@@ -107,8 +107,7 @@ const ProviderWrapper = (props) => {
           {
             title: "Une erreur s'est produite",
             subTitle:
-              e +
-              " : Token non-attribuer, veuillez réssayer plus-tard.",
+              e + " : Token non-attribuer, veuillez réssayer plus-tard.",
             style: "error",
           },
           (callback) => console.log("callback")
@@ -148,6 +147,7 @@ const ProviderWrapper = (props) => {
       })
       .catch((error) => {
         let errorMessage = error.response.data.error;
+     
         SweetAlert.showAlertWithOptions(
           {
             title: "Une erreur s'est produite",
