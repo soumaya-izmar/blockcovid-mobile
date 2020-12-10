@@ -21,9 +21,9 @@ const QRcode = ({ navigation }) => {
      
       SweetAlert.showAlertWithOptions(
         {
-          title: "Respectez les règles sanitaire",
+          title: "Respectez les règles sanitaires",
           subTitle:
-            "Soyez responsable, respectez les règles sanitaires et rentrez chez vous.",
+            "Soyez responsables, respectez les règles sanitaires et rentrez chez vous.",
           style: "warning",
         },
         (callback) => console.log("callback")

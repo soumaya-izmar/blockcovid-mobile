@@ -72,6 +72,7 @@ const ProviderWrapper = (props) => {
     getFcmToken()
       .then((response) => {
         deviceToken = response;
+        console.log(deviceToken)
         return utilsServices
           .getClient(deviceToken)
           .then((response) => {

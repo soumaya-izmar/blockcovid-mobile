@@ -28,9 +28,9 @@ const Home = ({ navigation }) => {
       time: alert.time + 1,
     });
   };
-
+ 
   React.useEffect(() => {
-    // Fetch the token from storage then navigate to our appropriate place
+ 
     const bootstrapAsync = async () => {
       let clientInfo;
       let nbLieux;
@@ -80,7 +80,7 @@ const Home = ({ navigation }) => {
       {
         title: "Information importante",
         subTitle:
-          "vous avez visité plus de 5 lieux aujourd'hui. RENTREZ CHEZ-VOUS!!!!!",
+          "Vous avez visité plus de 5 lieux aujourd'hui. RENTREZ CHEZ-VOUS!!!!!",
         style: "warning",
       },
       (callback) => {

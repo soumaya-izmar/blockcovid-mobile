@@ -21,7 +21,7 @@ const CarouselInfo = React.memo(function CarouselInfo() {
         idx: 2,
       },
       {
-        title: "Portez un masque dans les endroits publique.",
+        title: "Portez un masque dans les endroits publiques.",
         color: "#FFC180",
         idx: 3,
       },
