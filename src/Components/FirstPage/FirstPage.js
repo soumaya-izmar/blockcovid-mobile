@@ -26,7 +26,7 @@ const FirstPage = ({ navigation }) => {
         </View>
 
         <View style={{ flex: 3 }}>
-          <ButtonApp text={"Se connecter/S'inscrire"} disable={true} />
+         
           <View style={styles.addPadding}></View>
           <ButtonApp
             text={"Rester anonyme"}

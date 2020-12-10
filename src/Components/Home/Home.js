@@ -1,6 +1,7 @@
 import * as React from "react";
+
 import { Text, View } from "react-native";
-import { Overlay } from "react-native-elements";
+
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import messaging from "@react-native-firebase/messaging";
 import SweetAlert from "react-native-sweet-alert";
@@ -74,7 +75,6 @@ const Home = ({ navigation }) => {
   const scanHandler = () => {
     navigation.navigate("QRcode");
   };
-
 
   if (homeState.nbLieuxVisite >= 5 && alert.time === 0) {
     SweetAlert.showAlertWithOptions(
