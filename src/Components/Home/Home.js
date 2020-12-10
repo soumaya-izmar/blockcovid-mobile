@@ -51,7 +51,6 @@ const Home = ({ navigation }) => {
     };
 
     const unsubscribe = messaging().onMessage(async (remoteMessage) => {
-      console.log("notif ");
       SweetAlert.showAlertWithOptions(
         {
           title: remoteMessage.notification.title,

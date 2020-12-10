@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Text, View } from "react-native";
+import { Text, View, Image } from "react-native";
 
 import AuthContext from "../../contexts/MainContext";
 
@@ -19,14 +19,16 @@ const FirstPage = ({ navigation }) => {
   return (
     <>
       <View style={styles.Maincontainer}>
-        <View style={{ flex: 1 }}></View>
+      <View style={{ flex: 1}}></View>
 
-        <View style={{ flex: 2 }}>
-          <Text style={styles.textStyle}>BlockCovid</Text>
+        <View style={{ flex: 2.5}}>
+          <Image
+            style={{ height:250,width:258,justifyContent:"center" }}
+            source={require("../../../assets/Logo-final-v2.png")}
+          />
         </View>
 
-        <View style={{ flex: 3 }}>
-         
+        <View style={{ flex: 2.5}}>
           <View style={styles.addPadding}></View>
           <ButtonApp
             text={"Rester anonyme"}

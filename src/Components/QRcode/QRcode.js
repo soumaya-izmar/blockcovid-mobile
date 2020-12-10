@@ -3,6 +3,7 @@ import { Text, Alert } from "react-native";
 
 import QRCodeScanner from "react-native-qrcode-scanner";
 import { RNCamera } from "react-native-camera";
+import SweetAlert from "react-native-sweet-alert";
 
 import { CONTACTSTATE, COVIDSTATE } from "@env";
 
@@ -14,17 +15,19 @@ const QRcode = ({ navigation }) => {
   const { sendQrCode, homeState } = React.useContext(AuthContext);
 
   const readQrCodeSuccess = (e) => {
-  
+    sendQrCode(e.data);
+
     if (homeState.etat === CONTACTSTATE || homeState.etat === COVIDSTATE) {
-      //console.log("etat ==>" ,homeState.etat)
-      Alert.alert(
-        "Respectez les règles",
-        "Veuillez respectez les règles sanitaires et rentrez chez vous.",
-        [{ text: "OK", onPress: () => console.log("OK Pressed") }],
-        { cancelable: false }
+     
+      SweetAlert.showAlertWithOptions(
+        {
+          title: "Respectez les règles sanitaire",
+          subTitle:
+            "Soyez responsable, respectez les règles sanitaires et rentrez chez vous.",
+          style: "warning",
+        },
+        (callback) => console.log("callback")
       );
-    } else {
-      sendQrCode(e.data);
     }
     navigation.goBack();
   };

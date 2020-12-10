@@ -1,9 +1,7 @@
 import * as React from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-
 import messaging from "@react-native-firebase/messaging";
-
-import { Alert, ToastAndroid } from "react-native";
+import { ToastAndroid } from "react-native";
 import SweetAlert from "react-native-sweet-alert";
 
 import * as utilsServices from "../services/utils.js";
@@ -37,7 +35,6 @@ const ProviderWrapper = (props) => {
         setHomeState(newHomeState);
       })
       .catch((error) => {
-        console.log(error.response.data.error);
         let errorMessage = error.response.data.error;
         SweetAlert.showAlertWithOptions(
           {
@@ -75,7 +72,6 @@ const ProviderWrapper = (props) => {
     getFcmToken()
       .then((response) => {
         deviceToken = response;
-        console.log("Your Firebase Token is:", deviceToken);
         return utilsServices
           .getClient(deviceToken)
           .then((response) => {
@@ -106,7 +102,18 @@ const ProviderWrapper = (props) => {
             );
           });
       })
-      .catch((e) => console.log(e));
+      .catch((e) => {
+        SweetAlert.showAlertWithOptions(
+          {
+            title: "Une erreur s'est produite",
+            subTitle:
+              e +
+              " : Token non-attribuer, veuillez réssayer plus-tard.",
+            style: "error",
+          },
+          (callback) => console.log("callback")
+        );
+      });
   };
 
   const getFcmToken = async () => {
@@ -127,7 +134,7 @@ const ProviderWrapper = (props) => {
         let nbLieux = 0;
         if (response.nbLieuxVisitesDansLaJournee !== 0) {
           nbLieux = response.nbLieuxVisitesDansLaJournee;
-          console.log("nbLieux", nbLieux);
+
           AsyncStorage.setItem("nbLieux", JSON.stringify(nbLieux));
         }
         setHomeState({
@@ -140,8 +147,7 @@ const ProviderWrapper = (props) => {
         ToastAndroid.show("QR code enregistré", ToastAndroid.CENTER);
       })
       .catch((error) => {
-        console.log(error.message);
-        let errorMessage = error.message;
+        let errorMessage = error.response.data.error;
         SweetAlert.showAlertWithOptions(
           {
             title: "Une erreur s'est produite",

@@ -7,6 +7,8 @@ import { ProviderWrapper as ProviderWrapper } from "./src/contexts/MainContext";
 import Stack from "./src/Components/Stack/Stack.js";
 
 export default function AppMain() {
+
+
   return (
     <>
       <ProviderWrapper>
